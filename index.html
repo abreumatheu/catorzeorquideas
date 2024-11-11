@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pré-Venda - CatorzeOrquídeas</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* CSS básico para estilo e responsividade */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: #1c1c1c;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+
+    .logo {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      margin-bottom: 5px;
+    }
+
+    .slogan {
+      font-size: 0.9rem;
+      color: #bbb;
+    }
+
+    .banner {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .product-section {
+      width: 100%;
+      max-width: 600px;
+      margin-bottom: 30px;
+    }
+
+    .product-card {
+      background-color: #2a2a2a;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+
+     /* Estilos para o slider de imagens */
+     .image-slider {
+      position: relative;
+      width: 100%;
+      max-width: 100%;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+
+    .slider-images {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+
+    .slider-images img {
+      width: 100%;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .slider-nav {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+      padding: 0 10px;
+    }
+
+    .slider-nav button {
+      background-color: rgba(0, 0, 0, 0.5);
+      border: none;
+      color: #fff;
+      font-size: 1.5rem;
+      padding: 5px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .product-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 15px;
+    }
+
+    .product-name {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .product-card img {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .product-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .product-name {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .product-price {
+      font-size: 1rem;
+      color: #ffa500;
+      margin-bottom: 10px;
+    }
+
+    .size-selector {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      justify-content: center;
+      margin-bottom: 15px;
+    }
+
+    .size-selector button {
+      padding: 8px 12px;
+      background-color: #333;
+      color: #fff;
+      border: 1px solid #ffa500;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .size-selector button.selected {
+      background-color: #ffa500;
+      color: #1c1c1c;
+    }
+
+    .add-to-cart, .pre-order-item-btn {
+      background-color: #ffa500;
+      color: #1c1c1c;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin: 5px 0;
+      width: 100%;
+      text-align: center;
+    }
+
+    .floating-pre-order-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #ffa500;
+      color: #1c1c1c;
+      width: 60px;
+      height: 60px;
+      font-size: 1.5rem;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+    }
+
+    /* Botão de WhatsApp no canto superior direito */
+    .whatsapp-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #25d366;
+      color: #fff;
+      width: 50px;
+      height: 50px;
+      font-size: 1.5rem;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      z-index: 1001;
+    }
+
+    /* Botão de Instagram abaixo do botão de WhatsApp */
+    .instagram-btn {
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      background-color: #C13584;
+      color: #fff;
+      width: 50px;
+      height: 50px;
+      font-size: 1.5rem;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      z-index: 1001;
+    }
+
+    /* Modal styling */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 1001;
+    }
+
+    .modal-content {
+      background-color: #2a2a2a;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 90%;
+      text-align: center;
+      color: #fff;
+    }
+
+    .close-btn {
+      background-color: #ffa500;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 16px;
+      color: #1c1c1c;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+
+    .cart-item {
+      margin: 10px 0;
+      text-align: left;
+    }
+
+    /* Modal para visualização da imagem em tela cheia */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 1001;
+    }
+
+    .modal img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 8px;
+    }
+
+    .close-modal-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: rgba(0, 0, 0, 0.7);
+      border: none;
+      color: #fff;
+      font-size: 1.5rem;
+      padding: 5px;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 1002;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Cabeçalho -->
+   <header>
+    <img src="logo.jpg" alt="Logo da CatorzeOrquídeas" class="logo">
+    <h1>CatorzeOrquídeas</h1>
+  </header>
+  <!-- <p class="slogan">artes medíocres no abc / sp</p> -->
+
+ <!-- 
+  <div class="banner">
+    <img src="banner.jpg" alt="Pré-Venda Exclusiva" style="width: 100%;">
+  </div>
+-->
+
+  <!-- Seção dos Produtos -->
+  <div class="product-section">
+
+<!-- Modelo 1 -->
+<div class="product-card" data-product="Quebra Mar">
+  <div class="image-slider">
+    <div class="slider-images" id="slider-1">
+      <img src="quebra.frente.jpeg" alt="Quebra Mar - Imagem 1" onclick="openModal(this.src)">
+      <img src="quebra.verso.jpeg" alt="Quebra Mar - Imagem 2" onclick="openModal(this.src)">
+      <img src="tabelamedida.jpeg" alt="Quebra Mar - Imagem 3" onclick="openModal(this.src)">
+    </div>
+    <div class="slider-nav">
+      <button onclick="prevSlide('slider-1')">&#10094;</button>
+      <button onclick="nextSlide('slider-1')">&#10095;</button>
+    </div>
+  </div>
+  <div class="product-info">
+    <div class="product-name">Quebra Mar</div>
+    <div class="product-price">R$80,00</div>
+      <div class="size-selector">
+        <button onclick="selectSize('Quebra Mar', 'P', this)">P</button>
+        <button onclick="selectSize('Quebra Mar', 'M', this)">M</button>
+        <button onclick="selectSize('Quebra Mar', 'G', this)">G</button>
+        <button onclick="selectSize('Quebra Mar', 'GG', this)">GG</button>
+        <button onclick="selectSize('Quebra Mar', 'XGG', this)">XGG (+R$7,00)</button>
+        <button onclick="selectSize('Quebra Mar', 'G1', this)">G1</button>
+        <button onclick="selectSize('Quebra Mar', 'G2', this)">G2</button>
+        <button onclick="selectSize('Quebra Mar', 'G3', this)">G3</button>
+      </div>
+      <button class="add-to-cart" onclick="addToCart('Quebra Mar')">Adicionar ao Carrinho</button>
+    </div>
+  </div>
+
+ <!-- Modelo 2 -->
+ <div class="product-card" data-product="Paulo Beto">
+  <div class="image-slider">
+    <div class="slider-images" id="slider-2">
+      <img src="paulo.frente.jpeg" alt="Paulo Beto - Imagem 1" onclick="openModal(this.src)">
+      <img src="paulo.verso.jpeg" alt="Paulo Beto - Imagem 2" onclick="openModal(this.src)">
+      <img src="tabelamedida.jpeg" alt="Paulo Beto - Imagem 3" onclick="openModal(this.src)">
+    </div>
+    <div class="slider-nav">
+      <button onclick="prevSlide('slider-2')">&#10094;</button>
+      <button onclick="nextSlide('slider-2')">&#10095;</button>
+    </div>
+  </div>
+  <div class="product-info">
+    <div class="product-name">Paulo Beto</div>
+    <div class="product-price">R$80,00</div>
+      <div class="size-selector">
+        <button onclick="selectSize('Paulo Beto', 'P', this)">P</button>
+        <button onclick="selectSize('Paulo Beto', 'M', this)">M</button>
+        <button onclick="selectSize('Paulo Beto', 'G', this)">G</button>
+        <button onclick="selectSize('Paulo Beto', 'GG', this)">GG</button>
+        <button onclick="selectSize('Paulo Beto', 'XGG', this)">XGG (+R$7,00)</button>
+        <button onclick="selectSize('Paulo Beto', 'G1', this)">G1</button>
+        <button onclick="selectSize('Paulo Beto', 'G2', this)">G2</button>
+        <button onclick="selectSize('Paulo Beto', 'G3', this)">G3</button>
+      </div>
+      <button class="add-to-cart" onclick="addToCart('Paulo Beto')">Adicionar ao Carrinho</button>
+    </div>
+  </div>
+  
+  <!-- Modelo 3 -->
+  <div class="product-card" data-product="Dentre os grandes, és o primeiro">
+    <div class="image-slider">
+      <div class="slider-images" id="slider-3">
+        <img src="grande.frente.jpeg" alt="Dentre os grandes, és o primeiro - Imagem 1" onclick="openModal(this.src)">
+        <img src="grande.verso.jpeg" alt="Dentre os grandes, és o primeiro - Imagem 2" onclick="openModal(this.src)">
+        <img src="tabelamedida.jpeg" alt="Dentre os grandes, és o primeiro - Imagem 3" onclick="openModal(this.src)">
+      </div>
+      <div class="slider-nav">
+        <button onclick="prevSlide('slider-3')">&#10094;</button>
+        <button onclick="nextSlide('slider-3')">&#10095;</button>
+      </div>
+    </div>
+    <div class="product-info">
+      <div class="product-name">Dentre os grandes, és o primeiro</div>
+      <div class="product-price">R$80,00</div>
+      <div class="size-selector">
+        <button onclick="selectSize('Dentre os grandes, és o primeiro', 'P', this)">P</button>
+        <button onclick="selectSize('Dentre os grandes, és o primeiro', 'M', this)">M</button>
+        <button onclick="selectSize('Dentre os grandes, és o primeiro', 'G', this)">G</button>
+        <button onclick="selectSize('Dentre os grandes, és o primeiro', 'GG', this)">GG</button>
+        <button onclick="selectSize('Dentre os grandes, és o primeiro', 'XGG', this)">XGG (+R$7,00)</button>
+        <button onclick="selectSize('Dentre os grandes, és o primeiro', 'G1', this)">G1</button>
+        <button onclick="selectSize('Dentre os grandes, és o primeiro', 'G2', this)">G2</button>
+        <button onclick="selectSize('Dentre os grandes, és o primeiro', 'G3', this)">G3</button>
+      </div>
+      <button class="add-to-cart" onclick="addToCart('Dentre os grandes, és o primeiro')">Adicionar ao Carrinho</button>
+    </div>
+  </div>
+
+  </div>
+
+    <!-- Botão Flutuante de Pré-Venda -->
+    <button class="floating-pre-order-btn" onclick="openCartModal()">
+        <i class="fas fa-shopping-cart"></i>
+      </button>
+
+  <!-- Botão WhatsApp -->
+  <button class="whatsapp-btn" onclick="openWhatsApp()">
+    <i class="fab fa-whatsapp"></i>
+  </button>
+
+  <!-- Botão Instagram -->
+  <button class="instagram-btn" onclick="openInstagram()">
+    <i class="fab fa-instagram"></i>
+  </button>
+
+  <!-- Modal do Carrinho -->
+  <div id="cartModal" class="modal">
+    <div class="modal-content">
+      <h2>Itens no Carrinho</h2>
+      <div id="cartItems"></div>
+      <button class="close-btn" onclick="closeCartModal()">Fechar</button>
+      <button class="close-btn" onclick="sendPreOrder()">Realizar Pré-Venda</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2024 CatorzeOrquídeas. Todos os direitos reservados.</p>
+  </footer>
+
+  <div id="imageModal" class="modal" onclick="closeModal()">
+    <button class="close-modal-btn" onclick="closeModal()">&times;</button>
+    <img id="modalImage" src="">
+  </div>
+
+  <script>
+    let cart = [];
+    let selectedSizes = {};
+
+    function selectSize(product, size, buttonElement) {
+      selectedSizes[product] = size;
+      const sizeButtons = buttonElement.parentNode.querySelectorAll('button');
+      sizeButtons.forEach(btn => btn.classList.remove('selected'));
+      buttonElement.classList.add('selected');
+    }
+
+    function addToCart(product) {
+      const size = selectedSizes[product];
+      if (!size) {
+        alert("Por favor, selecione um tamanho para " + product);
+        return;
+      }
+
+      const price = ["XGG", "G1", "G2", "G3"].includes(size) ? 87 : 80;
+      cart.push({ product, size, price });
+      alert(product + ' (' + size + ') adicionado ao carrinho!');
+    }
+
+    function openCartModal() {
+      const cartModal = document.getElementById("cartModal");
+      const cartItemsDiv = document.getElementById("cartItems");
+
+      cartItemsDiv.innerHTML = '';
+      if (cart.length === 0) {
+        cartItemsDiv.innerHTML = "<p>O carrinho está vazio.</p>";
+      } else {
+        cart.forEach(item => {
+          const itemElement = document.createElement("div");
+          itemElement.classList.add("cart-item");
+          itemElement.textContent = `${item.product} - Tamanho: ${item.size} - Preço: R$${item.price}`;
+          cartItemsDiv.appendChild(itemElement);
+        });
+      }
+      cartModal.style.display = "flex";
+    }
+
+    function closeCartModal() {
+      document.getElementById("cartModal").style.display = "none";
+    }
+
+    function sendPreOrder() {
+      if (cart.length === 0) {
+        alert("O carrinho está vazio.");
+        return;
+      }
+
+      const message = cart.map(item => `${item.product} (${item.size}): R$${item.price}`).join('\n');
+      const whatsappLink = `https://wa.me/5511958731426?text=${encodeURIComponent(message)}`;
+      window.open(whatsappLink, '_blank');
+      closeCartModal();
+    }
+
+    function openWhatsApp() {
+      const whatsappLink = `https://wa.me/5511958731426`;
+      window.open(whatsappLink, '_blank');
+    }
+
+    function openInstagram() {
+      const instagramLink = `https://www.instagram.com/catorzeorquideas/`;
+      window.open(instagramLink, '_blank');
+    }
+
+    function nextSlide(sliderId) {
+      const slider = document.getElementById(sliderId);
+      const totalSlides = slider.children.length;
+      let currentSlide = parseInt(slider.getAttribute('data-current-slide')) || 0;
+
+      currentSlide = (currentSlide + 1) % totalSlides;
+      slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+      slider.setAttribute('data-current-slide', currentSlide);
+    }
+
+    function prevSlide(sliderId) {
+      const slider = document.getElementById(sliderId);
+      const totalSlides = slider.children.length;
+      let currentSlide = parseInt(slider.getAttribute('data-current-slide')) || 0;
+
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+      slider.setAttribute('data-current-slide', currentSlide);
+    }
+
+    function openModal(imageSrc) {
+      const modal = document.getElementById("imageModal");
+      const modalImage = document.getElementById("modalImage");
+      modalImage.src = imageSrc;
+      modal.style.display = "flex";
+    }
+
+    function closeModal() {
+      document.getElementById("imageModal").style.display = "none";
+    }
+
+    function nextSlide(sliderId) {
+      const slider = document.getElementById(sliderId);
+      const totalSlides = slider.children.length;
+      let currentSlide = parseInt(slider.getAttribute('data-current-slide')) || 0;
+
+      currentSlide = (currentSlide + 1) % totalSlides;
+      slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+      slider.setAttribute('data-current-slide', currentSlide);
+    }
+
+    function prevSlide(sliderId) {
+      const slider = document.getElementById(sliderId);
+      const totalSlides = slider.children.length;
+      let currentSlide = parseInt(slider.getAttribute('data-current-slide')) || 0;
+
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+      slider.setAttribute('data-current-slide', currentSlide);
+    }
+    
+  </script>
+
+</body>
+</html>
